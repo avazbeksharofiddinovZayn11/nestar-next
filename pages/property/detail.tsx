@@ -25,7 +25,9 @@ import { Pagination as MuiPagination } from '@mui/material';
 import Link from 'next/link';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+//@ts-ignore
 import 'swiper/css';
+//@ts-ignore
 import 'swiper/css/pagination';
 import { GET_COMMENTS, GET_PROPERTIES, GET_PROPERTY } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
@@ -301,12 +303,23 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 										</Stack>
 										<Stack className="button-box">
 											{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-												<FavoriteIcon color="primary" fontSize={'medium'} />
+												<FavoriteIcon
+													color="primary"
+													fontSize="medium"
+													onClick={() => {
+														if (property?._id) {
+															likePropertyHandler(user, property._id);
+														}
+													}}
+												/>
 											) : (
 												<FavoriteBorderIcon
-													fontSize={'medium'}
-													// @ts-ignore
-													onClick={() => likePropertyHandler(user, property?._id)}
+													fontSize="medium"
+													onClick={() => {
+														if (property?._id) {
+															likePropertyHandler(user, property._id);
+														}
+													}}
 												/>
 											)}
 											<Typography>{property?.propertyLikes}</Typography>
