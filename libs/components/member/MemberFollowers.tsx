@@ -32,27 +32,27 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 
 	/** APOLLO REQUESTS **/
 	const {
-	loading: getMemberFollowersLoading,
-	data: getMemberFollowersData,
-	error: getMemberFollowersError,
-	refetch: getMemberFollowersRefetch,
-} = useQuery(GET_MEMBER_FOLLOWERS, {
-	fetchPolicy: 'network-only',
-	variables: {
-		input: followInquiry,
-	},
-	skip: !followInquiry?.search?.followingId,
-	notifyOnNetworkStatusChange: true,
-	onCompleted: (data: T) => {
-		console.log('GET_MEMBER_FOLLOWERS DATA:', data);
-		console.log('FOLLOWING ID:', followInquiry?.search?.followingId);
-		console.log('FOLLOWERS LIST:', data?.getMemberFollowers?.list);
-		console.log('FOLLOWERS TOTAL:', data?.getMemberFollowers?.metaCounter);
+		loading: getMemberFollowersLoading,
+		data: getMemberFollowersData,
+		error: getMemberFollowersError,
+		refetch: getMemberFollowersRefetch,
+	} = useQuery(GET_MEMBER_FOLLOWERS, {
+		fetchPolicy: 'network-only',
+		variables: {
+			input: followInquiry,
+		},
+		skip: !followInquiry?.search?.followingId,
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			console.log('GET_MEMBER_FOLLOWERS DATA:', data);
+			console.log('FOLLOWING ID:', followInquiry?.search?.followingId);
+			console.log('FOLLOWERS LIST:', data?.getMemberFollowers?.list);
+			console.log('FOLLOWERS TOTAL:', data?.getMemberFollowers?.metaCounter);
 
-		setMemberFollowers(data?.getMemberFollowers?.list ?? []);
-		setTotal(data?.getMemberFollowers?.metaCounter?.[0]?.total ?? 0);
-	},
-});
+			setMemberFollowers(data?.getMemberFollowers?.list ?? []);
+			setTotal(data?.getMemberFollowers?.metaCounter?.[0]?.total ?? 0);
+		},
+	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -72,7 +72,6 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 			}));
 		}
 	}, [router.query.memberId, user?._id]);
-
 
 	/** HANDLERS **/
 	const paginationHandler = async (event: ChangeEvent<unknown>, value: number) => {
